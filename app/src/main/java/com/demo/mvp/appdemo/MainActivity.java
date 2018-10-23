@@ -2,10 +2,15 @@ package com.demo.mvp.appdemo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.demo.mvp.appdemo.models.Pokemon;
 import com.demo.mvp.appdemo.models.PokemonResponse;
 import com.demo.mvp.appdemo.network.ApiService;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,6 +26,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
+        final PokemonAdapter adapter = new PokemonAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+
+        final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(layoutManager);
+
         // Access to API
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://pokeapi.co/api/v2/")
@@ -34,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
         res.enqueue(new Callback<PokemonResponse>() {
             @Override
             public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
-                Log.d(TAG, "SUCCESS " + response.body().getResults());
+                assert response.body() != null;
+                ArrayList<Pokemon> pokemons = response.body().getResults();
+
+                adapter.addPokemonList(pokemons);
             }
 
             @Override
