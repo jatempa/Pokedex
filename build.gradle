@@ -37,6 +37,7 @@ ext {
     butterknifeVersion = '8.8.1'
     retrofitVersion = '2.4.0'
     gsonVersion = '2.8.5'
+    glideVersion = '4.8.0'
     //Test dependencies
     testRunnerVersion = '1.0.2'
     junitVersion = '4.12'
