@@ -1,6 +1,6 @@
 package com.demo.mvp.appdemo;
 
-import com.demo.mvp.appdemo.models.Pokemon;
+import com.demo.mvp.appdemo.data.models.Pokemon;
 
 import java.util.List;
 

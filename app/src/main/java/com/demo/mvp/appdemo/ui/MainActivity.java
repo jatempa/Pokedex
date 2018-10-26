@@ -1,4 +1,4 @@
-package com.demo.mvp.appdemo;
+package com.demo.mvp.appdemo.ui;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +7,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.demo.mvp.appdemo.models.Pokemon;
-import com.demo.mvp.appdemo.models.PokemonResponse;
-import com.demo.mvp.appdemo.network.ApiService;
+import com.demo.mvp.appdemo.R;
+import com.demo.mvp.appdemo.data.models.Pokemon;
+import com.demo.mvp.appdemo.data.models.PokemonResponse;
+import com.demo.mvp.appdemo.data.network.ApiService;
 
 import java.util.ArrayList;
 

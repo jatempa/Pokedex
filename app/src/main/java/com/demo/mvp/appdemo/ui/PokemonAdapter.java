@@ -1,4 +1,4 @@
-package com.demo.mvp.appdemo;
+package com.demo.mvp.appdemo.ui;
 
 
 import android.content.Context;
@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.demo.mvp.appdemo.models.Pokemon;
+import com.demo.mvp.appdemo.R;
+import com.demo.mvp.appdemo.data.models.Pokemon;
 
 import java.util.ArrayList;
 

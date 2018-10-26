@@ -1,6 +1,6 @@
-package com.demo.mvp.appdemo.network;
+package com.demo.mvp.appdemo.data.network;
 
-import com.demo.mvp.appdemo.models.PokemonResponse;
+import com.demo.mvp.appdemo.data.models.PokemonResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

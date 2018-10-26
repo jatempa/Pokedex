@@ -1,4 +1,4 @@
-package com.demo.mvp.appdemo.models;
+package com.demo.mvp.appdemo.data.models;
 
 import java.util.ArrayList;
 
