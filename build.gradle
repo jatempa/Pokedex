@@ -38,6 +38,7 @@ ext {
     retrofitVersion = '2.4.0'
     gsonVersion = '2.8.5'
     glideVersion = '4.8.0'
+    guavaVersion = '18.0'
     //Test dependencies
     testRunnerVersion = '1.0.2'
     junitVersion = '4.12'
