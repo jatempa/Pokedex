@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface PokemonsMvp {
     interface View {
-        void showPokemons(List<Pokemon> products);
+        void showPokemons(List<Pokemon> pokemons);
         void showLoadingState(boolean show);
         void showEmptyState();
         void showPokemonsError(String msg);
-        void showPokemonsPage(List<Pokemon> products);
+        void showPokemonsPage(List<Pokemon> pokemons);
         void showLoadMoreIndicator(boolean show);
         void allowMoreData(boolean show);
     }

@@ -5,5 +5,5 @@ import com.demo.mvp.appdemo.data.models.Pokemon;
 import java.util.List;
 
 public interface PokemonCriteria {
-    List<Pokemon> match(List<Pokemon> products);
+    List<Pokemon> match(List<Pokemon> pokemons);
 }
