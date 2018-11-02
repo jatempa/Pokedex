@@ -14,7 +14,7 @@ public class PokemonsPresenter  implements PokemonsMvp.Presenter {
     private final PokemonsRepository mPokemonsRepository;
     private final PokemonsMvp.View mPokemonsView;
 
-    public static final int PRODUCTS_LIMIT = 20;
+    public static final int POKEMONS_LIMIT = 20;
 
     private boolean isFirstLoad = true;
     private int mCurrentPage = 1;
@@ -39,7 +39,7 @@ public class PokemonsPresenter  implements PokemonsMvp.Presenter {
         }
 
         // Ahora, preparamos el criterio de paginación
-        PokemonCriteria criteria = new PagingPokemonCriteria(mCurrentPage, PRODUCTS_LIMIT);
+        PokemonCriteria criteria = new PagingPokemonCriteria(mCurrentPage, POKEMONS_LIMIT);
 
         mPokemonsRepository.getPokemons(
                 new PokemonsRepository.GetPokemonsCallback() {
