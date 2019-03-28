@@ -1,7 +1,6 @@
 package com.demo.mvp.appdemo.data.datasource;
 
 import com.demo.mvp.appdemo.data.models.Pokemon;
-import com.demo.mvp.appdemo.utils.PokemonCriteria;
 
 import java.util.List;
 
@@ -14,6 +13,6 @@ public interface IPokemonsRepository {
         void onDataNotAvailable(String error);
     }
 
-    void getPokemons(GetPokemonsCallback callback, PokemonCriteria criteria);
+    void getPokemons(GetPokemonsCallback callback);
     void refreshPokemons();
 }

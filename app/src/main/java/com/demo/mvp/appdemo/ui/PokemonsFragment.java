@@ -7,8 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +29,9 @@ public class PokemonsFragment extends Fragment implements PokemonsMvp.View {
     private View mEmptyView;
     private PokemonsAdapter.PokemonItemListener mItemListener = new PokemonsAdapter.PokemonItemListener() {
         @Override
-        public void onPokemonClick(Pokemon clickedPokemon) {
+        public void onPokemonClick(Pokemon pokemon) {
             // Aquí lanzarías la pantalla de detalle del pokemon
+            Toast.makeText(getContext(), "Pokemon: " + pokemon, Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -47,10 +48,12 @@ public class PokemonsFragment extends Fragment implements PokemonsMvp.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPokemonsAdapter = new PokemonsAdapter(new ArrayList<Pokemon>(0), mItemListener);
+        mPokemonsAdapter = new PokemonsAdapter(
+            new ArrayList<Pokemon>(0), mItemListener
+        );
         mPokemonsPresenter = new PokemonsPresenter(
-                DependencyProvider.providePokemonsRepository(getActivity()),
-                this);
+            DependencyProvider.providePokemonsRepository(getActivity()), this
+        );
 
         setRetainInstance(true);
     }

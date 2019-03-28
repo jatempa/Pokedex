@@ -170,6 +170,7 @@ public class PokemonsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public PokemonsHolder(View itemView, PokemonItemListener listener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            mItemListener = listener;
             itemView.setOnClickListener(this);
         }
 

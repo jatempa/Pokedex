@@ -3,8 +3,6 @@ package com.demo.mvp.appdemo.ui;
 import com.demo.mvp.appdemo.PokemonsMvp;
 import com.demo.mvp.appdemo.data.datasource.PokemonsRepository;
 import com.demo.mvp.appdemo.data.models.Pokemon;
-import com.demo.mvp.appdemo.utils.PagingPokemonCriteria;
-import com.demo.mvp.appdemo.utils.PokemonCriteria;
 
 import java.util.List;
 
@@ -38,9 +36,6 @@ public class PokemonsPresenter  implements PokemonsMvp.Presenter {
             mCurrentPage++;
         }
 
-        // Ahora, preparamos el criterio de paginación
-        PokemonCriteria criteria = new PagingPokemonCriteria(mCurrentPage, POKEMONS_LIMIT);
-
         mPokemonsRepository.getPokemons(
                 new PokemonsRepository.GetPokemonsCallback() {
                     @Override
@@ -58,8 +53,7 @@ public class PokemonsPresenter  implements PokemonsMvp.Presenter {
                         mPokemonsView.showLoadMoreIndicator(false);
                         mPokemonsView.showPokemonsError(error);
                     }
-                },
-                criteria);
+                });
 
     }
 

@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import com.demo.mvp.appdemo.data.datasource.cloud.ICloudPokemonsDataSource;
 import com.demo.mvp.appdemo.data.datasource.memory.IMemoryPokemonsDataSource;
 import com.demo.mvp.appdemo.data.models.Pokemon;
-import com.demo.mvp.appdemo.utils.PokemonCriteria;
 
 import java.util.List;
 
@@ -33,27 +32,25 @@ public class PokemonsRepository implements IPokemonsRepository {
     }
 
     @Override
-    public void getPokemons(GetPokemonsCallback callback, final PokemonCriteria criteria) {
+    public void getPokemons(GetPokemonsCallback callback) {
         if (true) {
-            getPokemonsFromServer(callback, criteria);
+            getPokemonsFromServer(callback);
         } else {
-            List<Pokemon> pokemons = mMemoryPokemonsDataSource.find(criteria);
+            List<Pokemon> pokemons = mMemoryPokemonsDataSource.find();
             if (pokemons.size() > 0) {
                 callback.onPokemonsLoaded(pokemons);
             } else {
-                getPokemonsFromServer(callback, criteria);
+                getPokemonsFromServer(callback);
             }
         }
     }
 
-    private void getPokemonsFromMemory(GetPokemonsCallback callback,
-                                       PokemonCriteria criteria) {
+    private void getPokemonsFromMemory(GetPokemonsCallback callback) {
 
-        callback.onPokemonsLoaded(mMemoryPokemonsDataSource.find(criteria));
+        callback.onPokemonsLoaded(mMemoryPokemonsDataSource.find());
     }
 
-    private void getPokemonsFromServer(final GetPokemonsCallback callback,
-                                       final PokemonCriteria criteria) {
+    private void getPokemonsFromServer(final GetPokemonsCallback callback) {
 
         if (!isOnline()) {
             callback.onDataNotAvailable("No hay conexión de red.");
@@ -65,15 +62,14 @@ public class PokemonsRepository implements IPokemonsRepository {
                     @Override
                     public void onLoaded(List<Pokemon> pokemons) {
                         refreshMemoryDataSource(pokemons);
-                        getPokemonsFromMemory(callback, criteria);
+                        getPokemonsFromMemory(callback);
                     }
 
                     @Override
                     public void onError(String error) {
                         callback.onDataNotAvailable(error);
                     }
-                },
-                null);
+                });
     }
 
     private boolean isOnline() {
