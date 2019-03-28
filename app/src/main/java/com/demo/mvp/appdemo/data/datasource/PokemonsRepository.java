@@ -20,8 +20,6 @@ public class PokemonsRepository implements IPokemonsRepository {
     private final ICloudPokemonsDataSource mCloudPokemonsDataSource;
     private final Context mContext;
 
-    private boolean mReload;
-
     public PokemonsRepository(IMemoryPokemonsDataSource memoryDataSource,
                               ICloudPokemonsDataSource cloudDataSource,
                               Context context) {
@@ -33,20 +31,10 @@ public class PokemonsRepository implements IPokemonsRepository {
 
     @Override
     public void getPokemons(GetPokemonsCallback callback) {
-        if (mReload) {
-            getPokemonsFromServer(callback);
-        } else {
-            List<Pokemon> pokemons = mMemoryPokemonsDataSource.find();
-            if (pokemons.size() > 0) {
-                callback.onPokemonsLoaded(pokemons);
-            } else {
-                getPokemonsFromServer(callback);
-            }
-        }
+        getPokemonsFromServer(callback);
     }
 
     private void getPokemonsFromMemory(GetPokemonsCallback callback) {
-
         callback.onPokemonsLoaded(mMemoryPokemonsDataSource.find());
     }
 
@@ -84,11 +72,5 @@ public class PokemonsRepository implements IPokemonsRepository {
         for (Pokemon pokemon : pokemons) {
             mMemoryPokemonsDataSource.save(pokemon);
         }
-        mReload = false;
-    }
-
-    @Override
-    public void refreshPokemons() {
-        mReload = true;
     }
 }
