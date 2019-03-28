@@ -33,7 +33,7 @@ public class PokemonsRepository implements IPokemonsRepository {
 
     @Override
     public void getPokemons(GetPokemonsCallback callback) {
-        if (true) {
+        if (mReload) {
             getPokemonsFromServer(callback);
         } else {
             List<Pokemon> pokemons = mMemoryPokemonsDataSource.find();
