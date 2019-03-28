@@ -1,10 +1,9 @@
 package com.demo.mvp.appdemo.data.datasource.memory;
 
 import com.demo.mvp.appdemo.data.models.Pokemon;
-import com.demo.mvp.appdemo.utils.PokemonCriteria;
+
 import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,11 +15,8 @@ public class MemoryPokemonsDataSource implements IMemoryPokemonsDataSource {
     private static HashMap<Integer, Pokemon> mCachedPokemons;
 
     @Override
-    public List<Pokemon> find(PokemonCriteria criteria) {
-
-        ArrayList<Pokemon> pokemons =
-                Lists.newArrayList(mCachedPokemons.values());
-        return criteria.match(pokemons);
+    public List<Pokemon> find() {
+        return Lists.newArrayList(mCachedPokemons.values());
     }
 
     @Override
@@ -38,10 +34,5 @@ public class MemoryPokemonsDataSource implements IMemoryPokemonsDataSource {
             mCachedPokemons = new LinkedHashMap<>();
         }
         mCachedPokemons.clear();
-    }
-
-    @Override
-    public boolean mapIsNull() {
-        return mCachedPokemons == null;
     }
 }

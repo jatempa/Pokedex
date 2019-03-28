@@ -2,7 +2,6 @@ package com.demo.mvp.appdemo.data.datasource.cloud;
 
 import com.demo.mvp.appdemo.data.models.PokemonResponse;
 import com.demo.mvp.appdemo.data.network.ApiService;
-import com.demo.mvp.appdemo.utils.PokemonCriteria;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +28,7 @@ public class CloudPokemonsDataSource implements ICloudPokemonsDataSource {
     }
 
     @Override
-    public void getPokemons(final PokemonServiceCallback callback, PokemonCriteria criteria) {
+    public void getPokemons(final PokemonServiceCallback callback) {
         Call<PokemonResponse> call = mRestService.fetchPokemons();
 
         call.enqueue(new Callback<PokemonResponse>() {

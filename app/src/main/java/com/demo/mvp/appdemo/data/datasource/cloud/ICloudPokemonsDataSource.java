@@ -1,7 +1,6 @@
 package com.demo.mvp.appdemo.data.datasource.cloud;
 
 import com.demo.mvp.appdemo.data.models.Pokemon;
-import com.demo.mvp.appdemo.utils.PokemonCriteria;
 
 import java.util.List;
 
@@ -14,6 +13,6 @@ public interface ICloudPokemonsDataSource {
         void onError(String error);
     }
 
-    void getPokemons(PokemonServiceCallback callback, PokemonCriteria criteria);
+    void getPokemons(PokemonServiceCallback callback);
 
 }
