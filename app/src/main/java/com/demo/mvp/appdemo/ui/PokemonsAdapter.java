@@ -71,7 +71,7 @@ public class PokemonsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 pokemonHolder.name.setText(p.getName());
 
                 Glide.with(pokemonHolder.itemView.getContext())
-                        .load("https://pokeapi.co/media/sprites/pokemon/" + p.getNumber() + ".png")
+                        .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + p.getNumber() + ".png")
                         .into(pokemonHolder.image);
                 break;
             case TYPE_LOADING_MORE:
