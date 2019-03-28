@@ -12,11 +12,6 @@ public class PokemonsPresenter  implements PokemonsMvp.Presenter {
     private final PokemonsRepository mPokemonsRepository;
     private final PokemonsMvp.View mPokemonsView;
 
-    public static final int POKEMONS_LIMIT = 20;
-
-    private boolean isFirstLoad = true;
-    private int mCurrentPage = 1;
-
     public PokemonsPresenter(PokemonsRepository pokemonsRepository,
                              PokemonsMvp.View pokemonsView) {
         mPokemonsRepository = checkNotNull(pokemonsRepository);
@@ -25,55 +20,19 @@ public class PokemonsPresenter  implements PokemonsMvp.Presenter {
 
     @Override
     public void loadPokemons(final boolean reload) {
-        final boolean reallyReload = reload || isFirstLoad;
-
-        if (reallyReload) {
-            mPokemonsView.showLoadingState(true);
-            mPokemonsRepository.refreshPokemons();
-            mCurrentPage = 1;
-        } else {
-            mPokemonsView.showLoadMoreIndicator(true);
-            mCurrentPage++;
-        }
-
+        mPokemonsRepository.refreshPokemons();
         mPokemonsRepository.getPokemons(
-                new PokemonsRepository.GetPokemonsCallback() {
-                    @Override
-                    public void onPokemonsLoaded(List<Pokemon> pokemons) {
-                        mPokemonsView.showLoadingState(false);
-                        processPokemons(pokemons, reallyReload);
+            new PokemonsRepository.GetPokemonsCallback() {
+                @Override
+                public void onPokemonsLoaded(List<Pokemon> pokemons) {
+                    mPokemonsView.showPokemons(pokemons);
+                }
 
-                        // Ahora si, ya no es el primer carga
-                        isFirstLoad = false;
-                    }
-
-                    @Override
-                    public void onDataNotAvailable(String error) {
-                        mPokemonsView.showLoadingState(false);
-                        mPokemonsView.showLoadMoreIndicator(false);
-                        mPokemonsView.showPokemonsError(error);
-                    }
-                });
-
-    }
-
-    private void processPokemons(List<Pokemon> pokemons, boolean reload) {
-        if (pokemons.isEmpty()) {
-            if (reload) {
-                mPokemonsView.showEmptyState();
-            } else {
-                mPokemonsView.showLoadMoreIndicator(false);
+                @Override
+                public void onDataNotAvailable(String error) {
+                    mPokemonsView.showPokemonsError(error);
+                }
             }
-            mPokemonsView.allowMoreData(false);
-        } else {
-            if (reload) {
-                mPokemonsView.showPokemons(pokemons);
-            } else {
-                mPokemonsView.showLoadMoreIndicator(false);
-                mPokemonsView.showPokemonsPage(pokemons);
-            }
-
-            mPokemonsView.allowMoreData(true);
-        }
+        );
     }
 }

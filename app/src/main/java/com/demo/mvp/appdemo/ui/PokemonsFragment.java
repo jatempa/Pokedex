@@ -65,11 +65,16 @@ public class PokemonsFragment extends Fragment implements PokemonsMvp.View {
         // Referencias UI
         mPokemonsList = (RecyclerView) root.findViewById(R.id.pokemons_list);
         mEmptyView = root.findViewById(R.id.noPokemons);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
 
         // Setup
-        setUpPokemonsList();
-        setUptRefreshLayout();
+        mPokemonsList.setAdapter(mPokemonsAdapter);
+        mPokemonsList.setHasFixedSize(true);
+
+        final  GridLayoutManager layoutManager =
+                ( GridLayoutManager) mPokemonsList.getLayoutManager();
+
+        mPokemonsList.setLayoutManager(layoutManager);
+        mPokemonsPresenter.loadPokemons(true);
 
         if (savedInstanceState != null) {
             hideList(false);
@@ -86,61 +91,10 @@ public class PokemonsFragment extends Fragment implements PokemonsMvp.View {
         }
     }
 
-    private void setUpPokemonsList() {
-        mPokemonsList.setAdapter(mPokemonsAdapter);
-        mPokemonsList.setHasFixedSize(true);
-
-        final  GridLayoutManager layoutManager =
-                ( GridLayoutManager) mPokemonsList.getLayoutManager();
-
-        // Se agrega escucha de scroll infinito.
-        mPokemonsList.addOnScrollListener(
-                new InfinityScrollListener(mPokemonsAdapter, layoutManager) {
-                    @Override
-                    public void onLoadMore() {
-                        mPokemonsPresenter.loadPokemons(false);
-                    }
-                });
-    }
-
-    private void setUptRefreshLayout() {
-        mSwipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
-                ContextCompat.getColor(getActivity(), R.color.colorAccent),
-                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-
-        mSwipeRefreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        mPokemonsPresenter.loadPokemons(true);
-                    }
-                });
-    }
-
     @Override
     public void showPokemons(List<Pokemon> pokemons) {
         mPokemonsAdapter.replaceData(pokemons);
         hideList(false);
-    }
-
-    @Override
-    public void showLoadingState(final boolean show) {
-        if (getView() == null) {
-            return;
-        }
-        mSwipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(show);
-            }
-        });
-    }
-
-    @Override
-    public void showEmptyState() {
-        mPokemonsList.setVisibility(View.GONE);
-        mEmptyView.setVisibility(View.VISIBLE);
     }
 
     private void hideList(boolean hide) {
@@ -152,25 +106,5 @@ public class PokemonsFragment extends Fragment implements PokemonsMvp.View {
     public void showPokemonsError(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG)
                 .show();
-    }
-
-    @Override
-    public void showPokemonsPage(List<Pokemon> pokemons) {
-        mPokemonsAdapter.addData(pokemons);
-        hideList(false);
-    }
-
-    @Override
-    public void showLoadMoreIndicator(boolean show) {
-        if (!show) {
-            mPokemonsAdapter.dataFinishedLoading();
-        } else {
-            mPokemonsAdapter.dataStartedLoading();
-        }
-    }
-
-    @Override
-    public void allowMoreData(boolean allow) {
-        mPokemonsAdapter.setMoreData(allow);
     }
 }
