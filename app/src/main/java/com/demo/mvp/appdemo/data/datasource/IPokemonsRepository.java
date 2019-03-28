@@ -14,5 +14,4 @@ public interface IPokemonsRepository {
     }
 
     void getPokemons(GetPokemonsCallback callback);
-    void refreshPokemons();
 }

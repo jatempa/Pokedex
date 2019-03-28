@@ -20,7 +20,6 @@ public class PokemonsPresenter  implements PokemonsMvp.Presenter {
 
     @Override
     public void loadPokemons(final boolean reload) {
-        mPokemonsRepository.refreshPokemons();
         mPokemonsRepository.getPokemons(
             new PokemonsRepository.GetPokemonsCallback() {
                 @Override

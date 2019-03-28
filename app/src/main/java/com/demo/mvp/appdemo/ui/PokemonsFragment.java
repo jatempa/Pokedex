@@ -76,19 +76,7 @@ public class PokemonsFragment extends Fragment implements PokemonsMvp.View {
         mPokemonsList.setLayoutManager(layoutManager);
         mPokemonsPresenter.loadPokemons(true);
 
-        if (savedInstanceState != null) {
-            hideList(false);
-        }
-
         return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState == null) {
-            mPokemonsPresenter.loadPokemons(false);
-        }
     }
 
     @Override
