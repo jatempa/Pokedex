@@ -1,1 +1,3 @@
 # Pokedex
+
+![](./pokedex.gif)
