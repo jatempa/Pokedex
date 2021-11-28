@@ -16,6 +16,7 @@ import com.demo.mvp.appdemo.R;
 import com.demo.mvp.appdemo.data.models.Pokemon;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,7 +72,7 @@ public class PokemonsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 pokemonHolder.name.setText(p.getName());
 
                 Glide.with(pokemonHolder.itemView.getContext())
-                        .load("https://pokeapi.co/media/sprites/pokemon/" + p.getNumber() + ".png")
+                        .load("https://img.pokemondb.net/sprites/home/normal/" + p.getName().toLowerCase(Locale.ROOT) + ".png")
                         .into(pokemonHolder.image);
                 break;
             case TYPE_LOADING_MORE:
